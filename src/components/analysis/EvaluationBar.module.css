@@ -1,0 +1,32 @@
+.bar {
+  width: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.segment {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.evalLabel {
+  position: absolute;
+  bottom: var(--sp-1);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}

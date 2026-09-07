@@ -1,0 +1,6 @@
+.boardWrapper {
+  width: 100%;
+  max-width: min(560px, 100%);
+  aspect-ratio: 1;
+  position: relative;
+}

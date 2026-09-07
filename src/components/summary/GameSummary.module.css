@@ -1,0 +1,228 @@
+.container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.startBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.analyzeBtn {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.analyzeBtn:hover {
+  background: var(--color-border);
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressText {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.cancelBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-subtle);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.progressBar {
+  height: 6px;
+  background: var(--color-surface-hover);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #5b8dd9;
+  transition: width 0.2s ease;
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerActions {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+.smallBtn {
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.smallBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.accuracyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.accuracyCard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.colorTag {
+  font-size: 0.7rem;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.accuracyVal {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 2px 0;
+}
+
+.accuracyLabel {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+}
+
+.statsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  font-size: 0.68rem;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.categoryHeader {
+  text-align: center;
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 2px 0;
+}
+
+.count {
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.catName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-xs);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.badgeBest {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.badgeExcellent {
+  background: rgba(134, 239, 172, 0.15);
+  color: #86efac;
+}
+
+.badgeInaccuracy {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.badgeMistake {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.badgeBlunder {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}

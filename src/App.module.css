@@ -1,0 +1,87 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.engineError {
+  background: rgba(239, 68, 68, 0.12);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-size: 0.82rem;
+  padding: var(--sp-2) var(--sp-6);
+  text-align: center;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-6);
+  padding: var(--sp-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: start;
+}
+
+/* ─── Board section ─────────────────────────────────────────────────────── */
+.boardSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.boardRow {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: stretch;
+}
+
+.boardAndControls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.belowBoard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 280px;
+  max-width: 400px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+    padding: var(--sp-4);
+    gap: var(--sp-4);
+  }
+
+  .sidebar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: var(--sp-3);
+    gap: var(--sp-3);
+  }
+
+  .boardRow {
+    gap: var(--sp-2);
+  }
+}
