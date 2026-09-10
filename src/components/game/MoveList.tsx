@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useChessGame } from '@/hooks/useChessGame'
 import { useAnalysisStore } from '@/store/analysisStore'
 import { CLASSIFICATION_SYMBOLS } from '@/analysis/moveClassification'
+import { isOpeningBookMove } from '@/analysis/openingBook'
 import styles from './MoveList.module.css'
 
 export function MoveList() {
@@ -40,6 +41,9 @@ export function MoveList() {
           const whiteAnalysis = gameAnalysis?.analyzedMoves[whiteIdx]
           const blackAnalysis = pair[1] ? gameAnalysis?.analyzedMoves[blackIdx] : null
 
+          const isWhiteLiveBook = !whiteAnalysis && isOpeningBookMove(moveHistory, whiteIdx)
+          const isBlackLiveBook = pair[1] && !blackAnalysis && isOpeningBookMove(moveHistory, blackIdx)
+
           return (
             <div key={pairIndex} className={styles.row} role="listitem">
               <span className={styles.moveNumber}>{moveNumber}.</span>
@@ -52,14 +56,21 @@ export function MoveList() {
                 aria-pressed={whiteIdx === currentMoveIndex}
               >
                 <span>{pair[0].san}</span>
-                {whiteAnalysis && (
+                {whiteAnalysis ? (
                   <span
                     className={`${styles.symbol} ${styles[whiteAnalysis.classification]}`}
                     title={`${whiteAnalysis.classification} (loss: ${whiteAnalysis.winChanceLoss.toFixed(1)}%)`}
                   >
                     {CLASSIFICATION_SYMBOLS[whiteAnalysis.classification]}
                   </span>
-                )}
+                ) : isWhiteLiveBook ? (
+                  <span
+                    className={`${styles.symbol} ${styles.book}`}
+                    title="Book move (Opening theory)"
+                  >
+                    📖
+                  </span>
+                ) : null}
               </button>
 
               {pair[1] ? (
@@ -71,14 +82,21 @@ export function MoveList() {
                   aria-pressed={blackIdx === currentMoveIndex}
                 >
                   <span>{pair[1].san}</span>
-                  {blackAnalysis && (
+                  {blackAnalysis ? (
                     <span
                       className={`${styles.symbol} ${styles[blackAnalysis.classification]}`}
                       title={`${blackAnalysis.classification} (loss: ${blackAnalysis.winChanceLoss.toFixed(1)}%)`}
                     >
                       {CLASSIFICATION_SYMBOLS[blackAnalysis.classification]}
                     </span>
-                  )}
+                  ) : isBlackLiveBook ? (
+                    <span
+                      className={`${styles.symbol} ${styles.book}`}
+                      title="Book move (Opening theory)"
+                    >
+                      📖
+                    </span>
+                  ) : null}
                 </button>
               ) : (
                 <span className={styles.movePlaceholder} />

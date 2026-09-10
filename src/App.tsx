@@ -10,6 +10,7 @@ import { FenDisplay } from '@/components/game/FenDisplay'
 import { PgnImport } from '@/components/game/PgnImport'
 import { EvaluationGraph } from '@/components/graph/EvaluationGraph'
 import { GameSummary } from '@/components/summary/GameSummary'
+import { Footer } from '@/components/layout/Footer'
 import { useStockfish } from '@/hooks/useStockfish'
 import { useChessStore } from '@/store/chessStore'
 import styles from './App.module.css'
@@ -46,21 +47,22 @@ export default function App() {
 
       <main className={styles.main}>
         {/* Left: eval bar + board + controls */}
+        {/* Left: eval bar beside chessboard + controls */}
         <section className={styles.boardSection} aria-label="Chess board">
-          <div className={styles.boardRow}>
+          <div className={styles.boardWithEval}>
             <EvaluationBar flipped={boardFlipped} />
-            <div className={styles.boardAndControls}>
+            <div className={styles.boardWrapperInner}>
               <ChessBoard />
-              <div className={styles.belowBoard}>
-                <GameStatus />
-                <GameControls
-                  onImportPgn={() => setShowPgnImport(true)}
-                  onExportPgn={handleExportPgn}
-                />
-              </div>
-              <FenDisplay />
             </div>
           </div>
+          <div className={styles.belowBoard}>
+            <GameStatus />
+            <GameControls
+              onImportPgn={() => setShowPgnImport(true)}
+              onExportPgn={handleExportPgn}
+            />
+          </div>
+          <FenDisplay />
         </section>
 
         {/* Right: engine analysis + move list + review + graph */}
@@ -71,6 +73,8 @@ export default function App() {
           <GameSummary />
         </aside>
       </main>
+
+      <Footer />
 
       {showPgnImport && <PgnImport onClose={() => setShowPgnImport(false)} />}
     </div>

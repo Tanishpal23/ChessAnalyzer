@@ -89,3 +89,36 @@
   line-height: 1.4;
   word-break: break-word;
 }
+
+.disabledBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4) 0;
+  gap: var(--sp-2);
+}
+
+.disabledText {
+  font-size: 0.78rem;
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+.turnOnBtn {
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.turnOnBtn:hover {
+  background: var(--color-surface);
+  border-color: #22c55e;
+  color: #22c55e;
+}

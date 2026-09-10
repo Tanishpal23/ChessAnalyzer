@@ -6,6 +6,8 @@ import styles from './EngineLines.module.css'
 
 export function EngineLines() {
   const analysis = useEngineStore((s) => s.analysis)
+  const isEngineEnabled = useEngineStore((s) => s.isEngineEnabled)
+  const setEngineEnabled = useEngineStore((s) => s.setEngineEnabled)
   const currentFen = useChessStore((s) => s.currentFen)
   const { variations, isAnalyzing, isReady, depth, nodes } = analysis
 
@@ -13,6 +15,23 @@ export function EngineLines() {
     return (
       <div className={styles.container}>
         <p className={styles.loading}>Loading engine…</p>
+      </div>
+    )
+  }
+
+  if (!isEngineEnabled) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <span className={styles.label}>Engine</span>
+          <span className={styles.meta}>Off</span>
+        </div>
+        <div className={styles.disabledBox}>
+          <p className={styles.disabledText}>Stockfish evaluation is turned off</p>
+          <button className={styles.turnOnBtn} onClick={() => setEngineEnabled(true)}>
+            Turn On Engine
+          </button>
+        </div>
       </div>
     )
   }

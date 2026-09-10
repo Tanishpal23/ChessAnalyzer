@@ -72,12 +72,28 @@
   margin-left: 4px;
 }
 
+.symbol.brilliant {
+  color: #1baca6;
+}
+
+.symbol.great {
+  color: #3b82f6;
+}
+
 .symbol.best {
   color: #22c55e;
 }
 
 .symbol.excellent {
-  color: #86efac;
+  color: #4ade80;
+}
+
+.symbol.good {
+  color: #38bdf8;
+}
+
+.symbol.book {
+  color: #d29922;
 }
 
 .symbol.inaccuracy {
@@ -86,6 +102,10 @@
 
 .symbol.mistake {
   color: #f97316;
+}
+
+.symbol.missed_win {
+  color: #f43f5e;
 }
 
 .symbol.blunder {

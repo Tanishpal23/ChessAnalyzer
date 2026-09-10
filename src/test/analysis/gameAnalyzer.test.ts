@@ -3,7 +3,7 @@ import { buildGameAnalysis } from '@/analysis/gameAnalyzer'
 import type { HistoryMove } from '@/types/chess'
 
 describe('gameAnalyzer', () => {
-  it('analyzes a short game and computes accuracy', () => {
+  it('analyzes a short game, identifies opening, and computes accuracy', () => {
     const moves: HistoryMove[] = [
       {
         san: 'e4',
@@ -31,8 +31,10 @@ describe('gameAnalyzer', () => {
 
     expect(analysis.isComplete).toBe(true)
     expect(analysis.analyzedMoves).toHaveLength(2)
-    expect(analysis.white.bestMoves).toBe(1)
-    expect(analysis.black.bestMoves).toBe(1)
+    expect(analysis.openingName).toBe("King's Pawn Game")
+    expect(analysis.eco).toBe('C20')
+    expect(analysis.white.bookMoves).toBe(1)
+    expect(analysis.black.bookMoves).toBe(1)
     expect(analysis.white.accuracy).toBeGreaterThan(90)
     expect(analysis.black.accuracy).toBeGreaterThan(90)
   })

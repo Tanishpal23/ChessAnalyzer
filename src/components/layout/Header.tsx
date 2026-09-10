@@ -8,6 +8,9 @@ export function Header() {
   const engineStrength = useChessStore((s) => s.engineStrength)
   const setEngineStrength = useChessStore((s) => s.setEngineStrength)
   const isEngineLoaded = useEngineStore((s) => s.isEngineLoaded)
+  const isEngineEnabled = useEngineStore((s) => s.isEngineEnabled)
+  const setEngineEnabled = useEngineStore((s) => s.setEngineEnabled)
+  const toggleEngineEnabled = useEngineStore((s) => s.toggleEngineEnabled)
 
   return (
     <header className={styles.header} role="banner">
@@ -29,7 +32,12 @@ export function Header() {
             </button>
             <button
               className={`${styles.modeBtn} ${gameMode === 'vs-engine' ? styles.modeBtnActive : ''}`}
-              onClick={() => setGameMode('vs-engine')}
+              onClick={() => {
+                setGameMode('vs-engine')
+                if (!isEngineEnabled) {
+                  setEngineEnabled(true)
+                }
+              }}
             >
               Play Stockfish
             </button>
@@ -55,13 +63,44 @@ export function Header() {
             </div>
           )}
 
-          <div className={styles.engineStatus}>
-            <span
-              className={`${styles.statusDot} ${isEngineLoaded ? styles.dotReady : styles.dotLoading}`}
-            />
-            <span className={styles.statusText}>
-              {isEngineLoaded ? 'Stockfish 18' : 'Loading Engine…'}
-            </span>
+          <div className={styles.engineContainer}>
+            <div className={styles.engineStatus}>
+              <span
+                className={`${styles.statusDot} ${
+                  !isEngineLoaded
+                    ? styles.dotLoading
+                    : isEngineEnabled
+                    ? styles.dotReady
+                    : styles.dotOff
+                }`}
+              />
+              <span className={styles.statusText}>
+                {isEngineLoaded ? 'Stockfish 18' : 'Loading Engine…'}
+              </span>
+            </div>
+
+            {isEngineLoaded && (
+              <button
+                type="button"
+                className={`${styles.engineToggle} ${
+                  isEngineEnabled ? styles.engineToggleOn : styles.engineToggleOff
+                }`}
+                onClick={toggleEngineEnabled}
+                aria-label={isEngineEnabled ? 'Turn engine off' : 'Turn engine on'}
+                title={
+                  isEngineEnabled
+                    ? 'Click to turn engine evaluation off'
+                    : 'Click to turn engine evaluation on'
+                }
+              >
+                <span className={styles.switchTrack}>
+                  <span className={styles.switchThumb} />
+                </span>
+                <span className={styles.switchLabel}>
+                  {isEngineEnabled ? 'Engine ON' : 'Engine OFF'}
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>

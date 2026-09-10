@@ -1,32 +1,107 @@
+.evalContainer {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+  min-height: 280px;
+}
+
 .bar {
-  width: 20px;
+  width: 28px;
   height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  border: 1px solid var(--color-border-subtle);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 4px 14px rgba(0, 0, 0, 0.45);
+  min-height: 280px;
 }
 
 .segment {
   width: 100%;
-  flex-shrink: 0;
+  min-height: 0;
+}
+
+.centerLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: rgba(128, 128, 128, 0.65);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .evalLabel {
   position: absolute;
-  bottom: var(--sp-1);
   left: 50%;
   transform: translateX(-50%);
-  font-size: 9px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 800;
   font-family: var(--font-mono);
-  color: var(--color-text-muted);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
   user-select: none;
   pointer-events: none;
   white-space: nowrap;
+  line-height: 1;
+  z-index: 3;
 }
+
+.evalLabelBottom {
+  bottom: 8px;
+}
+
+.evalLabelTop {
+  top: 8px;
+}
+
+/* ─── Hover Pill ────────────────────────────────────────────────────────── */
+.hoverPill {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111111;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  z-index: 50;
+  animation: pillFade 0.12s ease-out;
+}
+
+.hoverPill::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent rgba(255, 255, 255, 0.5) transparent transparent;
+}
+
+@keyframes pillFade {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+
+

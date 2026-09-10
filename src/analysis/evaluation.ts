@@ -69,17 +69,29 @@ export function normalizeEvalForBar(cp: number, mate: number | null): number {
 }
 
 /**
- * Calculate approximate accuracy for a player across a game.
- * Formula mirrors Lichess: based on average win-chance loss.
- *
- * accuracy = 103.1668 * exp(-0.04354 * avgWinChanceLoss) - 3.1669
- * Clamped to [0, 100].
- *
- * Reference: Lichess accuracy blog post.
+ * Calculate move-level accuracy using Chess.com CAPS2 style model.
+ * Each move is scored between 0 and 100 based on its win chance loss,
+ * heavily penalizing mistakes, missed wins, and blunders.
+ */
+export function calcMoveAccuracy(winChanceLoss: number): number {
+  if (winChanceLoss <= 0.005) return 100
+  // Normalized to percentage 0–100
+  const lossPct = winChanceLoss > 1 ? winChanceLoss : winChanceLoss * 100
+  if (lossPct <= 0.5) return 100
+
+  // Sigmoidal exponential falloff calibrated to Chess.com CAPS2 curve
+  const acc = 100 * Math.exp(-0.055 * lossPct)
+  return Math.max(0, Math.min(100, acc))
+}
+
+/**
+ * Calculate game accuracy for a player across all moves (Chess.com CAPS2 style).
+ * Takes individual move win-chance losses, calculates per-move accuracy, and averages them.
  */
 export function calcAccuracy(winChanceLosses: number[]): number {
   if (winChanceLosses.length === 0) return 100
-  const avg = winChanceLosses.reduce((a, b) => a + b, 0) / winChanceLosses.length
-  const accuracy = 103.1668 * Math.exp(-0.04354 * avg) - 3.1669
-  return Math.max(0, Math.min(100, accuracy))
+  const moveAccuracies = winChanceLosses.map(calcMoveAccuracy)
+  const avg = moveAccuracies.reduce((a, b) => a + b, 0) / moveAccuracies.length
+  return Math.round(avg * 10) / 10
 }
+

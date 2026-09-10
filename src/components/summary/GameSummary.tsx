@@ -86,6 +86,13 @@ export function GameSummary() {
             </div>
           </div>
 
+          {gameAnalysis.openingName && (
+            <div className={styles.openingBanner}>
+              {gameAnalysis.eco && <span className={styles.ecoTag}>{gameAnalysis.eco}</span>}
+              <span>{gameAnalysis.openingName}</span>
+            </div>
+          )}
+
           <div className={styles.accuracyGrid}>
             <div className={styles.accuracyCard}>
               <span className={styles.colorTag}>White</span>
@@ -107,6 +114,22 @@ export function GameSummary() {
             </div>
 
             <div className={styles.statRow}>
+              <span className={styles.count}>{gameAnalysis.white.brilliant}</span>
+              <span className={styles.catName}>
+                <span className={`${styles.badge} ${styles.badgeBrilliant}`}>!!</span> Brilliant
+              </span>
+              <span className={styles.count}>{gameAnalysis.black.brilliant}</span>
+            </div>
+
+            <div className={styles.statRow}>
+              <span className={styles.count}>{gameAnalysis.white.greatMoves}</span>
+              <span className={styles.catName}>
+                <span className={`${styles.badge} ${styles.badgeGreat}`}>!</span> Great
+              </span>
+              <span className={styles.count}>{gameAnalysis.black.greatMoves}</span>
+            </div>
+
+            <div className={styles.statRow}>
               <span className={styles.count}>{gameAnalysis.white.bestMoves}</span>
               <span className={styles.catName}>
                 <span className={`${styles.badge} ${styles.badgeBest}`}>✓</span> Best
@@ -124,8 +147,18 @@ export function GameSummary() {
 
             <div className={styles.statRow}>
               <span className={styles.count}>{gameAnalysis.white.goodMoves}</span>
-              <span className={styles.catName}>Good</span>
+              <span className={styles.catName}>
+                <span className={`${styles.badge} ${styles.badgeGood}`}>✓</span> Good
+              </span>
               <span className={styles.count}>{gameAnalysis.black.goodMoves}</span>
+            </div>
+
+            <div className={styles.statRow}>
+              <span className={styles.count}>{gameAnalysis.white.bookMoves}</span>
+              <span className={styles.catName}>
+                <span className={`${styles.badge} ${styles.badgeBook}`}>📖</span> Book
+              </span>
+              <span className={styles.count}>{gameAnalysis.black.bookMoves}</span>
             </div>
 
             <div className={styles.statRow}>
@@ -142,6 +175,14 @@ export function GameSummary() {
                 <span className={`${styles.badge} ${styles.badgeMistake}`}>?</span> Mistake
               </span>
               <span className={styles.count}>{gameAnalysis.black.mistakes}</span>
+            </div>
+
+            <div className={styles.statRow}>
+              <span className={styles.count}>{gameAnalysis.white.missedWins}</span>
+              <span className={styles.catName}>
+                <span className={`${styles.badge} ${styles.badgeMissedWin}`}>❌</span> Missed Win
+              </span>
+              <span className={styles.count}>{gameAnalysis.black.missedWins}</span>
             </div>
 
             <div className={styles.statRow}>

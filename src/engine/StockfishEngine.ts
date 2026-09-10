@@ -8,6 +8,8 @@ export interface AnalysisOptions {
   multiPV?: number
   /** Skill level 1–20 (for opponent mode) */
   skillLevel?: number
+  /** Max search time in ms (for opponent mode) */
+  movetime?: number
 }
 
 export interface PositionEvaluationResult {
@@ -64,6 +66,7 @@ export class StockfishEngine {
     depth: DEFAULT_ANALYSIS_DEPTH,
     multiPV: DEFAULT_MULTIPV,
     skillLevel: 20,
+    movetime: 0,
   }
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────
@@ -138,16 +141,22 @@ export class StockfishEngine {
       depth: options.depth ?? this.currentOptions.depth,
       multiPV: options.multiPV ?? this.currentOptions.multiPV,
       skillLevel: options.skillLevel ?? this.currentOptions.skillLevel,
+      movetime: options.movetime ?? 0,
     }
     this.currentOptions = opts
 
-    // Check cache first
-    const cached = this.cache.get(fen)
-    if (cached && cached.depth >= opts.depth) {
-      this.onAnalysis?.(cached)
-      this.isAnalyzing = false
-      this.queuedAnalysis = null
-      return
+    // Check cache first (only for full-skill analysis without movetime constraint)
+    if (opts.skillLevel >= 20 && opts.movetime <= 0) {
+      const cached = this.cache.get(fen)
+      if (cached && cached.depth >= opts.depth) {
+        this.onAnalysis?.(cached)
+        this.isAnalyzing = false
+        this.queuedAnalysis = null
+        if (cached.bestMoveUci) {
+          this.onBestMove?.(cached.bestMoveUci, fen)
+        }
+        return
+      }
     }
 
     if (this.isAnalyzing) {
@@ -172,7 +181,11 @@ export class StockfishEngine {
     this.send(`setoption name MultiPV value ${opts.multiPV}`)
     this.send(`setoption name Skill Level value ${opts.skillLevel}`)
     this.send(`position fen ${fen}`)
-    this.send(`go depth ${opts.depth}`)
+    if (opts.movetime > 0) {
+      this.send(`go depth ${opts.depth} movetime ${opts.movetime}`)
+    } else {
+      this.send(`go depth ${opts.depth}`)
+    }
   }
 
   /** Stop current analysis */

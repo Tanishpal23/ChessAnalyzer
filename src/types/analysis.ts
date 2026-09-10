@@ -3,17 +3,19 @@ import type { Color } from './chess'
 // ─── Analysis Types ────────────────────────────────────────────────────────
 
 /**
- * Lichess-style move classification.
- * Thresholds are based on win-chance loss (not raw centipawns).
+ * Chess.com-style move classification.
  */
 export type MoveClassification =
+  | 'brilliant'
+  | 'great'
   | 'best'
   | 'excellent'
   | 'good'
+  | 'book'
   | 'inaccuracy'
   | 'mistake'
+  | 'missed_win'
   | 'blunder'
-  | 'book' // opening book move (future)
 
 /** Analysis data for a single move in the game */
 export interface AnalyzedMove {
@@ -37,18 +39,22 @@ export interface AnalyzedMove {
   evaluationAfter: number | null
   /** Win-chance loss (0–1) for the player who made this move */
   winChanceLoss: number
-  /** Lichess-style classification */
+  /** Chess.com-style classification */
   classification: MoveClassification
 }
 
 /** Per-player summary statistics */
 export interface PlayerSummary {
-  accuracy: number // 0–100
+  accuracy: number // 0–100 (Chess.com CAPS2)
+  brilliant: number
+  greatMoves: number
   bestMoves: number
   excellentMoves: number
   goodMoves: number
+  bookMoves: number
   inaccuracies: number
   mistakes: number
+  missedWins: number
   blunders: number
 }
 
@@ -62,4 +68,7 @@ export interface GameAnalysis {
   isComplete: boolean
   /** 0–1 progress (for loading indicator) */
   progress: number
+  /** Detected opening name and ECO */
+  openingName?: string
+  eco?: string
 }
